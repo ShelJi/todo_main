@@ -1,17 +1,27 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
-from django.views.generic import TemplateView, FormView
+from django.views.generic import TemplateView, FormView, CreateView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import UserForm
+from .models import TasksModel
 
 
-class IndexView(LoginRequiredMixin, TemplateView):
+class IndexView(LoginRequiredMixin, CreateView):
     login_url = reverse_lazy("todoweb:login")
+    model = TasksModel
+    fields = ["name"]
     template_name = "index.html"
+    success_url = reverse_lazy("todoweb:index")
     
+    def form_valid(self, form):
+        if form.cleaned_data.get("name"):
+            form.save()
+            return super().form_valid(form)
+        return super().form_invalid(form)
+              
 class SignupView(FormView):
     template_name = "signup.html"
     form_class = UserForm
@@ -36,3 +46,4 @@ class LoginViewZ(LoginView):
     
     def get_success_url(self):
         return reverse_lazy("todoweb:index")
+    
