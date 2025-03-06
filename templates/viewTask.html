@@ -1,0 +1,12 @@
+{% extends "base/base.html" %} {% block body %}
+
+<div class="container">
+	<h1>All tasks</h1>
+	{% for task in tasks %}
+	<h1>{{ task.name }}</h1>
+	<input type="checkbox" {% if task.status %} checked {% endif %} />
+	<a href="{% url "todoweb:detail" task.id %}">View in detail</a>
+	{% endfor %}
+</div>
+
+{% endblock body %}

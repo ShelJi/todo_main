@@ -1,0 +1,9 @@
+{% extends "base/base.html" %} {% block body %}
+
+<div class="container">
+	<h1>Task</h1>
+    <h3>{{ detail.name }}</h3>
+	<input type="checkbox" {% if detail.status %} checked {% endif %} />
+</div>
+
+{% endblock body %}

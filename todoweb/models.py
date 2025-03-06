@@ -6,4 +6,4 @@ class TasksModel(models.Model):
     status = models.BooleanField(default=False)
     
     def __str__(self):
-        return self.name
+        return f"{self.name} + {self.status}"

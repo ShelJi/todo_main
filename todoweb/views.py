@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 
-from django.views.generic import TemplateView, FormView, CreateView
+from django.views.generic import TemplateView, FormView, CreateView, ListView, DetailView, UpdateView
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -46,4 +46,22 @@ class LoginViewZ(LoginView):
     
     def get_success_url(self):
         return reverse_lazy("todoweb:index")
+    
+class ShowTaskView(ListView):
+    template_name = "viewTask.html"
+    model = TasksModel
+    context_object_name = "tasks" 
+    
+class DetailTaskView(DetailView):
+    template_name = "detail.html"
+    model = TasksModel
+    context_object_name = "detail"
+
+class UpdateTaskView(UpdateView):
+    template_name = "update.html"
+    model = TasksModel
+    context_object_name = "update"
+    
+    
+    
     
